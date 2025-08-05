@@ -19,7 +19,7 @@ def utc_to_ist(value):
 
 def create_app():
     app = Flask(__name__)
-    app.secret_key = 'pj'  #  
+    app.secret_key = ''  #  
 
     #  App configurations
     app.config.update({
@@ -30,8 +30,8 @@ def create_app():
         'MAIL_SERVER': 'smtp.gmail.com',
         'MAIL_PORT': 587,
         'MAIL_USE_TLS': True,
-        'MAIL_USERNAME': 'no.reply.mini.bank.project@gmail.com',  
-        'MAIL_PASSWORD': 'umas ibqq ebuy rhfe'  
+        'MAIL_USERNAME': '',  
+        'MAIL_PASSWORD': ''  
     })
 
     #  Initialize extensions with app
