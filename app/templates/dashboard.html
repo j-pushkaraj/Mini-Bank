@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+  .dashboard-container {
+    padding: 50px 20px;
+  }
+
+  .dashboard-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .dashboard-card {
+    background-color: rgba(255, 255, 255, 0.97);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px 20px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .dashboard-card h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .dashboard-card p {
+    font-size: 0.95rem;
+    color: #666;
+  }
+
+  .btn-maroon {
+    background-color: #800000;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+
+  .btn-maroon:hover {
+    background-color: #a00000;
+  }
+</style>
+
+<div class="container dashboard-container">
+  <h2 class="dashboard-title">Admin Dashboard</h2>
+
+  
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+    {% set features = [
+      {'title': 'Create Account', 'desc': 'Add a new customer to the bank system.', 'url': 'main.create_account', 'btn': 'Open Account'},
+      {'title': 'Update Account', 'desc': 'Modify customer account information.', 'url': 'main.update_account', 'btn': 'Edit Account'},
+      {'title': 'Account Details', 'desc': 'Search and view customer account info.', 'url': 'main.account_details', 'btn': 'Search Account'},
+      {'title': 'Fund Transfer', 'desc': 'Transfer money between accounts securely.', 'url': 'main.transfer_funds', 'btn': 'Transfer Funds'},
+      {'title': 'Credit Amount', 'desc': 'Deposit money into a customer\'s account.', 'url': 'main.credit', 'btn': 'Credit'},
+      {'title': 'Debit Amount', 'desc': 'Withdraw money from a customer\'s account.', 'url': 'main.debit', 'btn': 'Debit'}
+    ] %}
+
+    {% for feature in features %}
+    <div class="col d-flex align-items-stretch">
+      <div class="dashboard-card text-center w-100">
+        <div>
+          <h5 class="mb-3">{{ feature.title }}</h5>
+          <p class="mb-4">{{ feature.desc }}</p>
+        </div>
+        <a href="{{ url_for(feature.url) }}" class="btn btn-maroon w-100 mt-auto">{{ feature.btn }}</a>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+
+{% endblock %}

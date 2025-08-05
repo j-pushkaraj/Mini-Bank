@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="text-center mb-4">Transfer Funds</h2>
+
+<div class="card p-4 card-custom">
+  <form method="POST">
+    <div class="mb-3">
+      <label>From Account Number</label>
+      <input type="text" name="from_account" class="form-control" placeholder="Sender account number" required>
+    </div>
+
+    <div class="mb-3">
+      <label>To Account Number</label>
+      <input type="text" name="to_account" class="form-control" placeholder="Receiver account number" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Amount (₹)</label>
+      <input type="number" name="amount" class="form-control" step="0.01" required>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-maroon px-5">Send OTP</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

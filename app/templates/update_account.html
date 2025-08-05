@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="text-center mb-4">Update Account</h2>
+
+<div class="card p-4 card-custom">
+    <form method="POST">
+        <div class="mb-3">
+            <label>Enter Account Number</label>
+            <input type="text" name="account_number" class="form-control" placeholder="MINIXXXXXXXXXX" required>
+        </div>
+        <div class="text-center">
+            <button type="submit" name="search" class="btn btn-maroon px-4">Search Account</button>
+        </div>
+    </form>
+</div>
+
+{% if account %}
+<div class="card p-4 card-custom mt-4">
+    <h4 class="text-center mb-3">Update Details for {{ account.account_number }}</h4>
+    <form method="POST">
+        <input type="hidden" name="account_id" value="{{ account.id }}">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label>First Name</label>
+                <input type="text" name="first_name" class="form-control" value="{{ account.first_name }}" required>
+            </div>
+            <div class="col-md-6">
+                <label>Middle Name</label>
+                <input type="text" name="middle_name" class="form-control" value="{{ account.middle_name }}">
+            </div>
+            <div class="col-md-6">
+                <label>Last Name</label>
+                <input type="text" name="last_name" class="form-control" value="{{ account.last_name }}" required>
+            </div>
+            <div class="col-md-6">
+                <label>Phone</label>
+                <input type="text" name="phone" class="form-control" value="{{ account.phone }}" required>
+            </div>
+            <div class="col-md-6">
+                <label>Gender</label>
+                <select name="gender" class="form-select" required>
+                    <option {% if account.gender == 'Male' %}selected{% endif %}>Male</option>
+                    <option {% if account.gender == 'Female' %}selected{% endif %}>Female</option>
+                    <option {% if account.gender == 'Other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" value="{{ account.email }}">
+            </div>
+            <div class="col-md-6">
+                <label>Branch</label>
+                <input type="text" name="branch" class="form-control" value="{{ account.branch }}">
+            </div>
+            <div class="col-md-6">
+                <label>IFSC</label>
+                <input type="text" name="ifsc" class="form-control" value="{{ account.ifsc }}">
+            </div>
+            <div class="col-md-6">
+                <label>Account Type</label>
+                <select name="account_type" class="form-select">
+                    <option {% if account.account_type == 'Jan Dhan' %}selected{% endif %}>Jan Dhan</option>
+                    <option {% if account.account_type == 'Savings' %}selected{% endif %}>Savings</option>
+                    <option {% if account.account_type == 'Current' %}selected{% endif %}>Current</option>
+                    <option {% if account.account_type == 'Salary' %}selected{% endif %}>Salary</option>
+                    <option {% if account.account_type == 'PM Kisan' %}selected{% endif %}>PM Kisan</option>
+                    <option {% if account.account_type == 'Other Government Scheme' %}selected{% endif %}>Other Government Scheme</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>City</label>
+                <input type="text" name="city" class="form-control" value="{{ account.city }}">
+            </div>
+            <div class="col-md-6">
+                <label>Pincode</label>
+                <input type="text" name="pincode" class="form-control" value="{{ account.pincode }}">
+            </div>
+            <div class="col-12">
+                <label>Address</label>
+                <textarea name="address" class="form-control" rows="2">{{ account.address }}</textarea>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button type="submit" name="update" class="btn btn-success px-5">Update Account</button>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}

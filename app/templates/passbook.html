@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .photo {
+      float: right;
+      width: 120px;
+      height: 150px;
+      border: 1px solid #000;
+      object-fit: cover;
+      margin-left: 20px;
+    }
+    .info {
+      margin-bottom: 10px;
+      clear: both;
+    }
+    .section {
+      margin: 20px 0;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align: center;">Mini Bank - Digital Passbook</h2>
+  <hr>
+
+  {% if photo_url %}
+    <img src="{{ photo_url }}" alt="Customer Photo" class="photo">
+  {% else %}
+    <p><i>No photo available</i></p>
+  {% endif %}
+
+  <div class="info"><strong>Account Number:</strong> {{ account.account_number }}</div>
+  <div class="info"><strong>Name:</strong> {{ account.first_name }} {{ account.middle_name }} {{ account.last_name }}</div>
+  <div class="info"><strong>Gender:</strong> {{ account.gender }}</div>
+  <div class="info"><strong>DOB:</strong> {{ account.dob }}</div>
+  <div class="info"><strong>Phone:</strong> {{ account.phone }}</div>
+  <div class="info"><strong>Email:</strong> {{ account.email }}</div>
+  <div class="info"><strong>Address:</strong> {{ account.address }}, {{ account.city }} - {{ account.pincode }}</div>
+  <div class="info"><strong>Branch:</strong> {{ account.branch }} (IFSC: {{ account.ifsc }})</div>
+  <div class="info"><strong>Account Type:</strong> {{ account.account_type }}</div>
+  <div class="info"><strong>Balance:</strong> ₹{{ account.balance }}</div>
+
+  <div class="section">
+  <h3>Transaction History</h3>
+  <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+    <thead>
+      <tr>
+        <th style="border: 1px solid #000; padding: 8px;">Date</th>
+        <th style="border: 1px solid #000; padding: 8px;">Type</th>
+        <th style="border: 1px solid #000; padding: 8px;">Amount</th>
+        <th style="border: 1px solid #000; padding: 8px;">Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if transactions %}
+        {% for txn in transactions %}
+        <tr>
+          <td style="border: 1px solid #000; padding: 8px;">{{ txn.timestamp | ist }}</td>
+          <td style="border: 1px solid #000; padding: 8px;">{{ txn.type | capitalize }}</td>
+          <td style="border: 1px solid #000; padding: 8px;">₹{{ '%.2f'|format(txn.amount) }}</td>
+          <td style="border: 1px solid #000; padding: 8px;">{{ txn.remarks }}</td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="4" style="border: 1px solid #000; padding: 8px; text-align: center;">No transactions available.</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+
+  <div class="section">
+    <hr>
+    <p style="text-align: center;"><em>Thank you for banking with Mini Bank.</em></p>
+  </div>
+</body>
+</html>

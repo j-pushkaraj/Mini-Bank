@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="text-center mb-4">Search Account Details</h2>
+
+<div class="card p-4 card-custom">
+    <form method="POST">
+        <div class="mb-3">
+            <label>Enter Account Number</label>
+            <input type="text" name="account_number" class="form-control" placeholder="MINIXXXXXXXXXX" required>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-maroon px-5">Search</button>
+        </div>
+    </form>
+</div>
+
+{% if account %}
+<div class="card p-4 card-custom mt-4">
+    <h4 class="text-center mb-4">Account Details</h4>
+    <div class="row g-3">
+        <div class="col-md-6"><strong>Account Number:</strong> {{ account.account_number }}</div>
+        <div class="col-md-6"><strong>Full Name:</strong> {{ account.first_name }} {{ account.middle_name }} {{ account.last_name }}</div>
+        <div class="col-md-6"><strong>Gender:</strong> {{ account.gender }}</div>
+        <div class="col-md-6"><strong>DOB:</strong> {{ account.dob.strftime('%d-%m-%Y') }}</div>
+        <div class="col-md-6"><strong>Phone:</strong> {{ account.phone }}</div>
+        <div class="col-md-6"><strong>Email:</strong> {{ account.email }}</div>
+        <div class="col-md-6"><strong>Aadhar:</strong> {{ account.aadhar }}</div>
+        <div class="col-md-6"><strong>PAN:</strong> {{ account.pan }}</div>
+        <div class="col-md-6"><strong>Branch:</strong> {{ account.branch }}</div>
+        <div class="col-md-6"><strong>IFSC:</strong> {{ account.ifsc }}</div>
+        <div class="col-md-6"><strong>City:</strong> {{ account.city }}</div>
+        <div class="col-md-6"><strong>Pincode:</strong> {{ account.pincode }}</div>
+        <div class="col-12"><strong>Address:</strong> {{ account.address }}</div>
+        <div class="col-md-6"><strong>Account Type:</strong> {{ account.account_type }}</div>
+        <div class="col-md-6"><strong>Balance:</strong> ₹{{ '%.2f'|format(account.balance) }}</div>
+
+<div class="col-md-6">
+  <strong>Aadhar File:</strong>
+  <a href="{{ url_for('main.view_aadhar', account_id=account.id) }}" target="_blank">View</a>
+</div>
+
+<div class="col-md-6">
+  <strong>PAN File:</strong>
+  <a href="{{ url_for('main.view_pan', account_id=account.id) }}" target="_blank">View</a>
+</div>
+
+<div class="col-md-6">
+  <strong>Photo:</strong><br>
+  {% if account.photo %}
+    <img src="{{ url_for('main.view_photo', account_id=account.id) }}" width="120" height="150">
+  {% else %}
+    Not Available
+  {% endif %}
+</div>
+</div>
+
+<h5 class="mt-4">Transaction History</h5>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if transactions %}
+      {% for txn in transactions %}
+      <tr>
+        <td>{{ txn.timestamp | ist }}</td>
+        <td>{{ txn.type.capitalize() }}</td>
+        <td>₹{{ txn.amount }}</td>
+        <td>{{ txn.remarks }}</td>
+      </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="4" class="text-center text-muted">No transactions available.</td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>
+
+
+
+<a href="{{ url_for('main.download_passbook', account_number=account.account_number) }}"
+   class="btn btn-outline-success mt-3" target="_blank">Download e-Passbook</a>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    body {
+        background: url("{{ url_for('static', filename='bank_bg.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+    <div class="col-md-6 col-lg-5">
+        <div class="card-custom text-center">
+            <h2 class="mb-3">Welcome to Mini Bank</h2>
+            <p class="mb-4">Admin Access Only. Please Log In.</p>
+            <a href="{{ url_for('main.login') }}" class="btn btn-maroon w-100">Admin Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

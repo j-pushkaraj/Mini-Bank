@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="text-center mb-4">Credit Amount</h2>
+
+<div class="card p-4 card-custom">
+  <form method="POST">
+    <div class="mb-3">
+      <label>Account Number</label>
+      <input type="text" name="account_number" class="form-control" placeholder="Enter account number" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Amount (₹)</label>
+      <input type="number" name="amount" class="form-control" step="0.01" required>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-maroon px-5">Send OTP</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
